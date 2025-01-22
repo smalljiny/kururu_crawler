@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    volumes:
+      - ./docker-data/mongodb/data/db:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1qazxsw2
+
+  # redis
+  redis:
+    image: redis
+    container_name: redis
+    hostname: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker-data/redis/data:/data
+    #command: redis-server --port 6379
+
+  # nats
+  nats:
+    image: nats
+    container_name: nats
+    hostname: nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    # command: "--cluster_name NATS --cluster nats://0.0.0.0:6222 --http_port 8222 -js"
+    command: "--http_port 8222 -js"
+
+networks:
+  kururu-network:
+    name: kururu-network
+    driver: bridge
