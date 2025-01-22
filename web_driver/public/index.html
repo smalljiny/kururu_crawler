@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Flask-SocketIO Test</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.socket.io/4.7.5/socket.io.min.js"
+      integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
+      crossorigin="anonymous"
+    ></script>
+    <style></style>
+
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function () {
+        var socket = io();
+
+        socket.on("connect", function () {
+          console.log("Connected to the server.");
+        });
+
+        socket.on("test", function (data) {
+          console.log(data);
+        });
+
+        socket.emit("test", { data: "I'm connected!" });
+      });
+    </script>
+  </head>
+  <body></body>
+</html>
