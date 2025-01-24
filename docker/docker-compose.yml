@@ -23,10 +23,8 @@ services:
       - "6379:6379"
     volumes:
       - ./docker-data/redis/data:/data
-    environment:
-      REDIS_USERNAME: mario
-      REDIS_PASSWORD: 1qazxsw2
-    command: redis-server --requirepass 1qazxsw2 --rename-command CONFIG ""
+      - ./init-redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
 
   # nats
   nats:
