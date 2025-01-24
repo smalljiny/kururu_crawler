@@ -6,8 +6,8 @@ services:
     container_name: mongodb
     hostname: mongodb
     volumes:
+      - ./init-db/init-user.js:/docker-entrypoint-initdb.d/init-user.js
       - ./docker-data/mongodb/data/db:/data/db
-      - ./docker-data/mongodb/init:/docker-entrypoint-initdb.d
     ports:
       - "27017:27017"
     environment:
