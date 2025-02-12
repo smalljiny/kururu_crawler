@@ -20,9 +20,12 @@ def decode_content(content, encoding):
             return brotli.decompress(content)
         elif encoding == 'zstd':
             dctx = zstd.ZstdDecompressor()
-            return dctx.decompress(content)
+            # 스트리밍 방식으로 압축 해제
+            with dctx.stream_reader(content) as reader:
+                decompressed = reader.read()  # 전체 데이터를 읽어들임
+            return decompressed
     except (zlib.error, brotli.error, zstd.ZstdError) as e:
-        print(f"Decompression error: {e}")
+        print(f"Decompression error: {e} / {encoding}")
         return content  # Return original content if decompression fails
     return content
 
@@ -98,7 +101,7 @@ def collect_request_response_data(directory):
     return data
 
 if __name__ == "__main__":
-    target_directory = "/Users/jinchuljung/Workspace/kimg/kururu_crawler/crawler_data/.seleniumwire/storage-e9894bde-e566-406e-9d32-e27020f94e14"
+    target_directory = "/Users/jinchuljung/Workspace/kimg/kururu_crawler/data/.seleniumwire/storage-ccd4a7c1-a245-4b74-985a-cc0c47cf23fa"
     data = collect_request_response_data(target_directory)
     
     with open("/Users/jinchuljung/Workspace/kimg/kururu_crawler/result/collected_data.json", "w") as f:

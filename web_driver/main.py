@@ -18,8 +18,13 @@ def init_selenium():
     service = Service(executable_path="../chromedriver-mac-arm64/chromedriver")
     
     options = {
-        'request_storage_base_dir': '/Users/jinchuljung/Workspace/kimg/kururu_crawler/web_driver/temp',  # .seleniumwire will get created here
-        'exclude_hosts': ['google-analytics.com', 'update.googleapis.com', 'optimizationguide-pa.googleapis.com', 'edgedl.me.gvt1.com', 'accounts.google.com']
+        'request_storage_base_dir': '/Users/jinchuljung/Workspace/kimg/kururu_crawler/data',
+        'exclude_hosts': [
+            'google-analytics.com', 'update.googleapis.com', 'optimizationguide-pa.googleapis.com',
+            'edgedl.me.gvt1.com', 'accounts.google.com', 'content-autofill.googleapis.com',
+            'edge-chat.facebook.com', 'edge-chat.instagram.com', 'gateway.instagram.com',
+            'googleads.g.doubleclick.net', 'www.google.com', 'www.googletagmanager.com'
+        ]
     }
     
     driver = webdriver.Chrome(service=service, options=chrome_options, seleniumwire_options=options)
@@ -47,7 +52,6 @@ def serve_favicon():
 
 @socketio.on('test')
 def test(data):
-    
     emit('test', data)
 
 if __name__ == '__main__':
